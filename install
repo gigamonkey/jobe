@@ -205,7 +205,7 @@ def main():
     if install_dir not in JOBE_DIRS:
         print("WARNING: Jobe appears not to have been installed in /var/www")
         print("or /var/www/html as expected. Things might turn ugly.")
-        print(f"Current working directory: ${install_dir}")
+        print(f"Current working directory: {install_dir}")
 
     if subprocess.check_output('whoami', shell=True) != b'root\n':
             print("****This script must be run by root*****")
