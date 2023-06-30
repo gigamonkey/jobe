@@ -25,6 +25,8 @@ ENV LANG C.UTF-8
 COPY 000-jobe.conf /
 # Copy test script
 COPY container-test.sh /
+# Copy the source of jobe
+COPY jobe/ /var/www/html/jobe
 
 # Set timezone
 # Install extra packages
@@ -69,7 +71,6 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     mkdir -p /var/crash && \
     chmod 777 /var/crash && \
     echo '<!DOCTYPE html><html lang="en"><title>Jobe</title><h1>Jobe</h1></html>' > /var/www/html/index.html && \
-    git clone https://github.com/trampgeek/jobe.git /var/www/html/jobe && \
     apache2ctl start && \
     cd /var/www/html/jobe && \
     /usr/bin/python3 /var/www/html/jobe/install --max_uid=500 && \
