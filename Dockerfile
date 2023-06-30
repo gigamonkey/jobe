@@ -42,14 +42,9 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
         acl \
         apache2 \
         build-essential \
-        fp-compiler \
-        git \
         libapache2-mod-php \
-        nodejs \
-        octave \
         openjdk-19-jdk \
         php \
-        php-cli \
         php-mbstring \
         python3 \
         python3-pip \
@@ -75,6 +70,7 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     cd /var/www/html/jobe && \
     /usr/bin/python3 /var/www/html/jobe/install --max_uid=500 && \
     chown -R ${APACHE_RUN_USER}:${APACHE_RUN_GROUP} /var/www/html && \
+    apt-get purge -y build-essential && \
     apt-get -y autoremove --purge && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
