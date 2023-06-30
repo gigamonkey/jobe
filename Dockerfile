@@ -12,7 +12,7 @@ LABEL \
     org.opencontainers.image.documentation="https://github.com/trampgeek/jobeinabox" \
     org.opencontainers.image.source="https://github.com/trampgeek/jobeinabox"
 
-ARG TZ=Pacific/Auckland
+ARG TZ=UTC
 # Set up the (apache) environment variables
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
@@ -26,7 +26,7 @@ COPY 000-jobe.conf /
 # Copy test script
 COPY container-test.sh /
 # Copy the source of jobe
-COPY jobe/ /var/www/html/jobe
+COPY jobe/ /var/www/html/jobe/
 
 # Set timezone
 # Install extra packages
@@ -47,7 +47,7 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
         libapache2-mod-php \
         nodejs \
         octave \
-        default-jdk \
+        openjdk-19-jdk \
         php \
         php-cli \
         php-mbstring \
