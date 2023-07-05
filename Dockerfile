@@ -27,6 +27,9 @@ COPY 000-jobe.conf /
 # Copy test script
 COPY container-test.sh /
 
+# Copy the source of jobe
+COPY jobe/ /var/www/html/jobe/
+
 # Set timezone
 # Install extra packages
 # Redirect apache logs to stdout
@@ -64,13 +67,8 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     mv /000-jobe.conf /etc/apache2/sites-enabled/ && \
     mkdir -p /var/crash && \
     chmod 777 /var/crash && \
-    echo '<!DOCTYPE html><html lang="en"><title>Jobe</title><h1>Jobe</h1></html>' > /var/www/html/index.html
-
-# Copy the source of jobe
-COPY jobe/ /var/www/html/jobe/
-
-# FIXME: maybe want to move the apt-get purge, etc. back into the previous layer.
-RUN apache2ctl start && \
+    echo '<!DOCTYPE html><html lang="en"><title>Jobe</title><h1>Jobe</h1></html>' > /var/www/html/index.html && \
+    apache2ctl start && \
     cd /var/www/html/jobe && \
     /usr/bin/python3 /var/www/html/jobe/install --max_uid=500 && \
     chown -R ${APACHE_RUN_USER}:${APACHE_RUN_GROUP} /var/www/html && \
