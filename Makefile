@@ -1,3 +1,4 @@
+# FIXME: tag should really come from git sha or something
 tag := jobe
 name := ujobe
 
@@ -16,7 +17,7 @@ build:
 	docker build . -t $(tag)
 
 run:
-	docker run $(MOUNT) -d -p 4000:80 $(tag)
+	docker run --name $(name) $(MOUNT) -d -p 4000:80 $(tag)
 
 relaunch:
 	docker stop $(name) && docker rm $(name) && $(MAKE) build run
