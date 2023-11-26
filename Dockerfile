@@ -2,7 +2,8 @@
 # With thanks to David Bowes (d.h.bowes@lancaster.ac.uk) who did all the hard work
 # on this originally.
 
-FROM docker.io/ubuntu:22.04
+# This gets us an ubuntu container with the latest JDK
+FROM eclipse-temurin:21-jdk-jammy
 
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
 LABEL \
@@ -45,7 +46,6 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
         apache2 \
         build-essential \
         libapache2-mod-php \
-        openjdk-19-jdk \
         php \
         php-mbstring \
         python3 \
@@ -76,6 +76,10 @@ RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && \
     apt-get -y autoremove --purge && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/*
+
+# Put java and javac where jobe expects them.
+RUN ln -s /opt/java/openjdk/bin/java /usr/bin/java && \
+    ln -s /opt/java/openjdk/bin/javac /usr/bin/javac
 
 # Add jar files to /usr/local/lib/java for use by Java jobs. Put this after the
 # rest since we're more likely to want to change this part (by adding files)
