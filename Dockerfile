@@ -15,12 +15,12 @@ LABEL \
 
 ARG TZ=UTC
 # Set up the (apache) environment variables
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_LOCK_DIR /var/lock/apache2
-ENV APACHE_PID_FILE /var/run/apache2.pid
-ENV LANG C.UTF-8
+ENV APACHE_RUN_USER=www-data
+ENV APACHE_RUN_GROUP=www-data
+ENV APACHE_LOG_DIR=/var/log/apache2
+ENV APACHE_LOCK_DIR=/var/lock/apache2
+ENV APACHE_PID_FILE=/var/run/apache2.pid
+ENV LANG=C.UTF-8
 
 # Copy apache virtual host file for later use
 COPY 000-jobe.conf /
@@ -85,7 +85,7 @@ RUN ln -s /opt/java/openjdk/bin/java /usr/bin/java && \
 # rest since we're more likely to want to change this part (by adding files)
 # than some of the earlier layers.
 RUN mkdir -p /usr/local/lib/java
-COPY jars/* /usr/local/lib/java/
+COPY jars/*.jar /usr/local/lib/java/
 RUN chmod a+w /usr/local/lib/java
 
 # Expose apache
