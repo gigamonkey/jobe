@@ -3,7 +3,7 @@
 # on this originally.
 
 # This gets us an ubuntu container with the latest JDK
-FROM eclipse-temurin:21-jdk-jammy
+FROM eclipse-temurin:22-jdk-jammy
 
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
 LABEL \
