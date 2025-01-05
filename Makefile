@@ -2,6 +2,8 @@
 tag := jobe
 name := ujobe
 
+PLATFORM=linux/amd64
+
 pwd := $(shell pwd)
 
 ifdef DEV
@@ -14,10 +16,10 @@ test:
 	echo $(MOUNT)
 
 build:
-	docker build . -t $(tag)
+	docker build --platform $(PLATFORM) . -t $(tag)
 
 run:
-	docker run --name $(name) $(MOUNT) -d -p 4000:80 $(tag)
+	docker run --platform $(PLATFORM) --name $(name) $(MOUNT) -d -p 4000:80 $(tag)
 
 relaunch:
 	docker stop $(name) && docker rm $(name) && $(MAKE) build run
